@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .section-active {
+    @apply bg-purple-700 text-white;
+  }
+}
