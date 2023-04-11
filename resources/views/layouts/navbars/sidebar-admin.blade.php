@@ -23,9 +23,9 @@
         </li>
 
         <li class="mt-0.5 w-full">
-          <a class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section')) bg-white shadow-soft-xl rounded-lg font-semibold text-slate-700 @endif py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="{{ route('admin.class') }}">
-            <div class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section')) bg-gradient-to-tl from-purple-700 to-pink-500 @endif shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-1.5">
-                <svg class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section')) fill-white @else fill-slate-800 @endif" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="book">
+          <a class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section') || request()->routeIs('admin.class.section.create')) bg-white shadow-soft-xl rounded-lg font-semibold text-slate-700 @endif py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="{{ route('admin.class') }}">
+            <div class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section') || request()->routeIs('admin.class.section.create')) bg-gradient-to-tl from-purple-700 to-pink-500 @endif shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-1.5">
+                <svg class="@if (request()->routeIs('admin.class') || request()->routeIs('admin.class.section') || request()->routeIs('admin.class.section.create')) fill-white @else fill-slate-800 @endif" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 24 24" id="book">
                     <path fill="" d="M15,6H9A1,1,0,0,0,8,7v4a1,1,0,0,0,1,1h6a1,1,0,0,0,1-1V7A1,1,0,0,0,15,6Zm-1,4H10V8h4Zm3-8H5A1,1,0,0,0,4,3V21a1,1,0,0,0,1,1H17a3,3,0,0,0,3-3V5A3,3,0,0,0,17,2Zm1,17a1,1,0,0,1-1,1H6V4H17a1,1,0,0,1,1,1Z"></path>
                 </svg>
             </div>
