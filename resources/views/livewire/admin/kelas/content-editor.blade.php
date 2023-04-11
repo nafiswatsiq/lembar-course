@@ -1,11 +1,15 @@
 <div>
-    <form method="post" wire:submit.prevent="save">
+    <form wire:submit.prevent="save" enctype="multipart/form-data">
         <div class="mb-6">
             <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
             <input type="text" name="title" wire:model="title" id="title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="" required>
         </div> 
-        <div wire:ignore class="mb-6">
-            <textarea id="summernote" wire:model="content"></textarea>
+        <div class="mb-6" wire:ignore>
+            {{-- <textarea wire:model="content"></textarea> --}}
+            <textarea id="summernote" name="content" wire:model.lazy="content">
+                {!! $content !!}
+            </textarea>
+            {{-- <input type="file" id="image" wire:model="image"> --}}
         </div>
         <div class="flex justify-between">
             <button type="submit" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Save</button>
@@ -18,3 +22,66 @@
         </div>
     </form>
 </div>
+
+<script>
+$(document).ready(function() {
+    $('#summernote').summernote({
+      placeholder: 'Text here...',
+      tabsize: 2,
+      toolbar: [
+        ['style', ['style']],
+        ['font', ['bold', 'underline', 'clear']],
+        ['color', ['color']],
+        ['para', ['ul', 'ol', 'paragraph']],
+        ['table', ['table']],
+        ['insert', ['link', 'picture', 'video']],
+        ['view', ['fullscreen', 'codeview', 'help']],
+        ['custom', ['fileInput', 'textHighligt']],
+      ],
+      height: 300,
+      callbacks: {
+        onChange: function(contents, $editable) {
+            @this.set('content', contents);
+        },
+      },
+    //   buttons: {
+    //         fileInput: function() {
+    //             const ui = $.summernote.ui;
+    //             const button = ui.button({
+    //                 contents: '<i class="fa fa-image"/>',
+    //                 tooltip: 'Insert image',
+    //                 click: function() {
+    //                     const input = document.createElement('input');
+    //                     input.type = 'file';
+    //                     input.accept = 'image/*';
+    //                     input.onchange = function(event) {
+    //                         const file = event.target.files[0];
+    //                         const reader = new FileReader();
+    //                         reader.onload = function() {
+    //                             const img = document.createElement('img');
+    //                             img.src = reader.result;
+    //                             $('#summernote').summernote('insertNode', img);
+    //                         }
+    //                         reader.readAsDataURL(file);
+    //                     };
+    //                     input.click();
+    //                 }
+    //             });
+    //             return button.render();
+    //         },
+
+    //         textHighligt: function() {
+    //             const ui = $.summernote.ui;
+    //             const button = ui.button({
+    //                 contents: '<i class="fa fa-text-width"/>',
+    //                 tooltip: 'Text Highligt',
+    //                 click: function() {
+                        
+    //                 }
+    //             });
+    //             return button.render();
+    //         }
+    //     }
+    });
+});
+</script>

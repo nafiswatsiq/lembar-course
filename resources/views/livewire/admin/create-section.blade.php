@@ -9,16 +9,16 @@
       
       <div class="mt-5 grid grid-rows-1 gap-3">
         @foreach ($sections as $section )
-        <div class="w-full border rounded-lg px-4 py-2 shadow-md hover:shadow-none cursor-pointer  @if ($section->id == $section_id) section-active @else bg-white @endif" wire:click="section('{{ $section->id }}')">
+        <a href="{{ route('admin.class.section.create', ['slug'=> $slug, 'id'=>$section->id]) }}" class="w-full border rounded-lg px-4 py-2 shadow-md hover:shadow-none cursor-pointer  @if ($section->id == $section_id) section-active @else bg-white @endif">
           <p>{{ Str::limit($section->title, 75, false) }}</p>
-        </div>
+        </a>
         @endforeach
       </div>
     </div>
     <div class="w-9/12 px-6">
       @if ($sections->count() > 0)
       <div class="w-full bg-white shadow-lg p-10 rounded-xl">
-        <livewire:admin.kelas.content-editor :sections="$sections"/>
+        <livewire:admin.kelas.content-editor :sections="$sections" :idSection="$idSection"/>
       </div>
       @endif
     </div>

@@ -14,7 +14,7 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <!-- Main Styling -->
     <link href="{{ asset('assets') }}/css/styles.css?v=1.0.3" rel="stylesheet" />
-    <link rel="stylesheet" href="{{ asset('css/summernote-bs4.css') }}">
+    @stack('styles')
     @vite(['resources/css/app.css'])
     @livewireStyles
   </head>
@@ -36,10 +36,10 @@
     </main>
 
     @livewireScripts
+    @wireUiScripts
     @vite(['resources/js/app.js'])
     @livewire('livewire-ui-modal')
     @stack('scripts')
-    @wireUiScripts
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- main script file  -->
     <script src="{{ asset('assets') }}/js/soft-ui-dashboard-tailwind.js?v=1.0.3" async></script>

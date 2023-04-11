@@ -7,3 +7,15 @@
     @apply bg-purple-700 text-white;
   }
 }
+
+.note-modal-footer{
+  @apply py-10;
+}
+
+.btn {
+  @apply bg-purple-700 text-white;
+}
+
+.note-editable{
+  @apply bg-white;
+}

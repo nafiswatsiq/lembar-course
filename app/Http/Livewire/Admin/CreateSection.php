@@ -16,6 +16,8 @@ class CreateSection extends Component
 
     public $section_id;
 
+    public $idSection;
+
 
     protected $listeners = [
         'refresh' => 'mount',
@@ -27,25 +29,14 @@ class CreateSection extends Component
         $kelas = Kelas::where('slug', $this->slug)->first();
         $this->sections = $kelas->sections;
 
-        try{
-            $this->section = Section::where('id', $this->section_id)->first();
-            $this->section_id = $this->section->id;
-
-        }catch(\Exception $e){
+        if($this->idSection){
+            $this->section_id = $this->idSection;
+        }else{
             if($this->sections->count() > 0){
                 $this->section = $this->sections->first();
                 $this->section_id = $this->section->id;
-    
-                $this->section($this->section->id);
             }
         }
-    }
-
-    public function section($id)
-    {
-        $this->section_id = $id;
-
-        $this->emit('section', $this->section_id);
     }
 
     public function render()

@@ -23,12 +23,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login.form')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/class', [ClassController::class, 'index'])->name('class');
     Route::get('/class/{slug}', [ClassController::class, 'createSection'])->name('class.section');
+    Route::get('/class/{slug}/{id}', [ClassController::class, 'createSection'])->name('class.section.create');
 });
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {

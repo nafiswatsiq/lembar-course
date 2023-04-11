@@ -6,10 +6,13 @@ use App\Models\Section;
 use Livewire\Component;
 use WireUi\Traits\Actions;
 use Illuminate\Http\Request;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
 
 class ContentEditor extends Component
 {
     use Actions;
+    use WithFileUploads;
     
     public $sections;
 
@@ -17,7 +20,11 @@ class ContentEditor extends Component
 
     public $content;
 
+    public $image;
+
     public $title;
+
+    public $idSection;
 
     protected $listeners = [
         'section' => 'section',
@@ -26,24 +33,40 @@ class ContentEditor extends Component
     public function mount()
     {
         if($this->sections->count() > 0) {
-            $this->section = $this->sections->first();
+            if($this->idSection){
+                $this->section = $this->sections->where('id', $this->idSection)->first();
+            }else{
+                $this->section = $this->sections->first();
+            }
             $this->title = $this->section->title;
             $this->content = $this->section->content;
         }
     }
 
-    public function section($id)
-    {
-        $this->section = Section::where('id', $id)->first();
-        $this->title = $this->section->title;
-        $this->content = $this->section->content;
-    }
-
     public function save()
     {
+        $description = $this->content;
+        $dom = new \DomDocument();
+        $dom->loadHtml($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);    
+        $images = $dom->getElementsByTagName('img');
+        
+        foreach($images as $k => $img){
+            $data = $img->getAttribute('src');
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = base64_decode($data);
+            $image_name = "/storage/images/content/".time().$k.'.png';
+            $path = public_path() . $image_name;
+            file_put_contents($path, $data);
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $image_name);
+         }
+
+        $content = $dom->saveHTML();
+
         $this->section->update([
             'title' => $this->title,
-            'content' => $this->content,
+            'content' => $content,
         ]);
 
         $this->notification()->success(
@@ -53,6 +76,18 @@ class ContentEditor extends Component
 
         $this->emit('refresh');
     }
+
+    // public function storeImg()
+    // {
+    //     $path = $this->image->store('public/images');
+
+    //     return Storage::url($path);
+    // }
+
+    // public function updatedContent()
+    // {
+    //     $this->emit('contentUpdated', $this->content);
+    // }
 
     public function delete()
     {

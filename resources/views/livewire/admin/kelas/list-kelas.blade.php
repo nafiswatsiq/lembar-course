@@ -8,7 +8,7 @@
         </a>
         @foreach ($kelas as $kls)
         <div class="border shadow-lg rounded-xl px-6 py-3">
-          <a href="{{ route('admin.class.section', $kls->slug) }}" class="w-full h-full">
+          <a href="{{ route('admin.class.section', ['slug'=> $kls->slug]) }}" class="w-full h-full">
             <div>
               <img src="{{ asset('storage/images/'.$kls->image) }}" alt="">
             </div>
