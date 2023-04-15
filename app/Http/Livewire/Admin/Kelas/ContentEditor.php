@@ -52,14 +52,21 @@ class ContentEditor extends Component
         
         foreach($images as $k => $img){
             $data = $img->getAttribute('src');
-            list($type, $data) = explode(';', $data);
-            list(, $data)      = explode(',', $data);
-            $data = base64_decode($data);
-            $image_name = "/storage/images/content/".time().$k.'.png';
-            $path = public_path() . $image_name;
-            file_put_contents($path, $data);
-            $img->removeAttribute('src');
-            $img->setAttribute('src', $image_name);
+            $check_img = str_replace('/storage/images/content/', '', $data);
+            if (Storage::exists('public/images/content/'.$check_img)) {
+                // gambar ada di storage
+                // dd('ada');
+            } else {
+                // gambar tidak ada di storage
+                list($type, $data) = explode(';', $data);
+                list(, $data)      = explode(',', $data);
+                $data = base64_decode($data);
+                $image_name = "/storage/images/content/".time().$k.'.png';
+                $path = public_path() . $image_name;
+                file_put_contents($path, $data);
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $image_name);
+            }
          }
 
         $content = $dom->saveHTML();

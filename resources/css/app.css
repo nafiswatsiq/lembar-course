@@ -19,3 +19,7 @@
 .note-editable{
   @apply bg-white;
 }
+
+.editor-highlight{
+  @apply border rounded-md p-2;
+}

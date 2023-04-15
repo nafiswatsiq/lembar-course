@@ -9,7 +9,6 @@
             <textarea id="summernote" name="content" wire:model.lazy="content">
                 {!! $content !!}
             </textarea>
-            {{-- <input type="file" id="image" wire:model="image"> --}}
         </div>
         <div class="flex justify-between">
             <button type="submit" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Save</button>
@@ -23,65 +22,100 @@
     </form>
 </div>
 
+<div id="modal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+    <div class="flex items-center justify-center min-h-screen">
+      <div id="outline" class="fixed inset-0 bg-gray-900 opacity-75"></div>
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700 w-[70rem]">
+            <button type="button" id="modal-close" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="authentication-modal">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="px-6 py-6 lg:px-8">
+                <h3 class="mb-4 text-xl font-medium text-gray-900 dark:text-white">Add Code</h3>
+                <form class="space-y-6" action="#">
+                    <div>
+                        <textarea id="inputCode" rows="10" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write your thoughts here..."></textarea>
+                    </div>
+                    <button type="button" onclick="getValueCode()" class="w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const modal = document.getElementById('modal');
+    const closeModalButton = document.getElementById('modal-close');
+  
+    closeModalButton.addEventListener('click', () => {
+      modal.classList.add('hidden');
+    });
+
+    function getValueCode() {
+        const summernote = $('#summernote').summernote();
+        const textarea = document.getElementById('inputCode');
+        const value = textarea.value;
+        // console.log(value);
+        summernote.summernote('pasteHTML', `
+        <div class="editor-highlight">
+        <div class="bg-[#2a2c3d] w-full p-4 flex gap-2">
+            <div class="h-[14px] w-[14px] rounded-full bg-orange-500"></div>
+            <div class="h-[14px] w-[14px] rounded-full bg-yellow-300"></div>
+            <div class="h-[14px] w-[14px] rounded-full bg-green-500"></div>
+        </div>
+        <pre><code class="language-javascript">${value}</code></pre>
+        </div>`);
+        modal.classList.add('hidden');
+    }
+
+</script>
 <script>
 $(document).ready(function() {
     $('#summernote').summernote({
-      placeholder: 'Text here...',
-      tabsize: 2,
-      toolbar: [
-        ['style', ['style']],
-        ['font', ['bold', 'underline', 'clear']],
-        ['color', ['color']],
-        ['para', ['ul', 'ol', 'paragraph']],
-        ['table', ['table']],
-        ['insert', ['link', 'picture', 'video']],
-        ['view', ['fullscreen', 'codeview', 'help']],
-        ['custom', ['fileInput', 'textHighligt']],
-      ],
-      height: 300,
-      callbacks: {
-        onChange: function(contents, $editable) {
-            @this.set('content', contents);
+        placeholder: 'Text here...',
+        tabsize: 2,
+        toolbar: [
+          ['style', ['style']],
+          ['font', ['bold', 'underline', 'clear']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['table', ['table']],
+          ['insert', ['link', 'picture', 'video']],
+          ['view', ['fullscreen', 'codeview', 'help']],
+          ['custom', ['textHighligt']],
+        ],
+        height: 400,
+        callbacks: {
+          onChange: function(contents, $editable) {
+              @this.set('content', contents);
+          },
         },
-      },
-    //   buttons: {
-    //         fileInput: function() {
-    //             const ui = $.summernote.ui;
-    //             const button = ui.button({
-    //                 contents: '<i class="fa fa-image"/>',
-    //                 tooltip: 'Insert image',
-    //                 click: function() {
-    //                     const input = document.createElement('input');
-    //                     input.type = 'file';
-    //                     input.accept = 'image/*';
-    //                     input.onchange = function(event) {
-    //                         const file = event.target.files[0];
-    //                         const reader = new FileReader();
-    //                         reader.onload = function() {
-    //                             const img = document.createElement('img');
-    //                             img.src = reader.result;
-    //                             $('#summernote').summernote('insertNode', img);
-    //                         }
-    //                         reader.readAsDataURL(file);
-    //                     };
-    //                     input.click();
-    //                 }
-    //             });
-    //             return button.render();
-    //         },
+        buttons: {
+            textHighligt: function(context) {
+                var ui = $.summernote.ui;
+                var button = ui.button({
+                    contents: '<i class="fa fa-text-width"/>',
+                    tooltip: 'Text Highligt',
+                    click: function() {
+                        modal.classList.remove('hidden');
+                    // var el = document.createElement('pre');
+                    // var code = document.createElement('code');
+                    // el.appendChild(code);
 
-    //         textHighligt: function() {
-    //             const ui = $.summernote.ui;
-    //             const button = ui.button({
-    //                 contents: '<i class="fa fa-text-width"/>',
-    //                 tooltip: 'Text Highligt',
-    //                 click: function() {
-                        
-    //                 }
-    //             });
-    //             return button.render();
-    //         }
-    //     }
+                    // // set attributes
+                    // el.setAttribute('class', 'editor-highlight');
+                    // code.setAttribute('class', 'language-javascript');
+                    // code.innerHTML = 'My Content';
+
+                    // // insert element
+                    // var range = context.invoke('editor.createRange');
+                    // range.insertNode(el);
+                    }
+                });
+                return button.render();
+            }
+        }
     });
 });
 </script>
