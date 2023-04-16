@@ -34,9 +34,9 @@
         </li>
 
         <li class="mt-0.5 w-full">
-          <a class=" py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="{{ route('admin.class') }}">
-            <div class=" shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-1.5">
-                <svg class=" fill-slate-800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow">
+          <a class="@if (request()->routeIs('admin.programing.lang')) bg-white shadow-soft-xl rounded-lg font-semibold text-slate-700 @endif py-2.7 text-sm ease-nav-brand my-0 mx-4 flex items-center whitespace-nowrap px-4 transition-colors" href="{{ route('admin.programing.lang') }}">
+            <div class="@if (request()->routeIs('admin.programing.lang')) bg-gradient-to-tl from-purple-700 to-pink-500 @endif shadow-soft-2xl mr-2 flex h-8 w-8 items-center justify-center rounded-lg bg-white bg-center stroke-0 text-center xl:p-1.5">
+                <svg class="@if (request()->routeIs('admin.programing.lang')) fill-white @else fill-slate-800 @endif" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="arrow">
                   <path fill="" d="M9.71,6.29a1,1,0,0,0-1.42,0l-5,5a1,1,0,0,0,0,1.42l5,5a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42L5.41,12l4.3-4.29A1,1,0,0,0,9.71,6.29Zm11,5-5-5a1,1,0,0,0-1.42,1.42L18.59,12l-4.3,4.29a1,1,0,0,0,0,1.42,1,1,0,0,0,1.42,0l5-5A1,1,0,0,0,20.71,11.29Z"></path>
                 </svg>
             </div>

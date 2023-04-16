@@ -1,10 +1,11 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\HomeController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ProgramingLangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/class', [ClassController::class, 'index'])->name('class');
     Route::get('/class/{slug}', [ClassController::class, 'createSection'])->name('class.section');
     Route::get('/class/{slug}/{id}', [ClassController::class, 'createSection'])->name('class.section.create');
+    Route::get('/programing-language', [ProgramingLangController::class, 'index'])->name('programing.lang');
 });
 
 Route::middleware(['auth', 'role:user'])->prefix('user')->name('user.')->group(function () {
