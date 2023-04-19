@@ -7,6 +7,7 @@ use Livewire\Component;
 use WireUi\Traits\Actions;
 use Illuminate\Http\Request;
 use Livewire\WithFileUploads;
+use App\Models\ProgramLanguage;
 use Illuminate\Support\Facades\Storage;
 
 class ContentEditor extends Component
@@ -26,6 +27,8 @@ class ContentEditor extends Component
 
     public $idSection;
 
+    public $programingLangs;
+
     protected $listeners = [
         'section' => 'section',
     ];
@@ -41,6 +44,8 @@ class ContentEditor extends Component
             $this->title = $this->section->title;
             $this->content = $this->section->content;
         }
+
+        $this->programingLangs = ProgramLanguage::orderBy('name', 'asc')->get();
     }
 
     public function save()

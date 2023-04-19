@@ -11,6 +11,8 @@ class ProgramingLang extends Component
 {
     use Actions;
     use WithPagination;
+
+    public $perpage = 10;
     
     protected $listeners = [
         'refresh' => '$refresh',
@@ -32,7 +34,7 @@ class ProgramingLang extends Component
     public function render()
     {
         return view('livewire.admin.programing-lang', [
-            'programingLangs' => ProgramLanguage::orderBy('id', 'desc')->paginate(10),
+            'programingLangs' => ProgramLanguage::orderBy('id', 'desc')->paginate($this->perpage),
         ]);
     }
 }

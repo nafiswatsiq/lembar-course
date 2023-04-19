@@ -8,6 +8,7 @@
 
     @livewireStyles
     {{-- @vite('resources/css/app.css') --}}
+    @stack('styles')
     @vite(['resources/css/app.css','resources/js/app.js'])
 
 </head>
@@ -81,5 +82,6 @@
 
     @livewireScripts
     @wireUiScripts
+    @stack('scripts')
 </body>
 </html>
