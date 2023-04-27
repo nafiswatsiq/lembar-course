@@ -32,7 +32,7 @@
                 </td>
                 <td class="px-6 py-4 w-32 text-center">
                     <div class="flex gap-3">
-                        <a href="javascript:;" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                        <a href="javascript:;" wire:click="$emit('openModal', 'admin.programing-lang.edit-language', {{ json_encode([$lang->id]) }})" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                         <a href="javascript:;" wire:click="delete({{ $lang->id }})" class="font-medium text-red-600 dark:text-red-500 hover:underline">Hapus</a>
                     </div>
                 </td>
