@@ -16,11 +16,6 @@
       </span>
     </button>    
   </div> --}}
-  <div>
-    <ul>
-      
-    </ul>
-  </div>
   <livewire:admin.create-section :slug="$slug" :idSection="$idSection"/>
 </div>
 @endsection

@@ -18,6 +18,8 @@ class CreateSection extends Component
 
     public $idSection;
 
+    public $className;
+
 
     protected $listeners = [
         'refresh' => 'mount',
@@ -28,6 +30,7 @@ class CreateSection extends Component
     {
         $kelas = Kelas::where('slug', $this->slug)->first();
         $this->sections = $kelas->sections;
+        $this->className = $kelas->name;
 
         if($this->idSection){
             $this->section_id = $this->idSection;
@@ -37,6 +40,14 @@ class CreateSection extends Component
                 $this->section_id = $this->section->id;
             }
         }
+    }
+
+    public function delete()
+    {
+        $kelas = Kelas::where('slug', $this->slug)->first();
+        $kelas->delete();
+
+        return redirect()->route('admin.class');
     }
 
     public function render()

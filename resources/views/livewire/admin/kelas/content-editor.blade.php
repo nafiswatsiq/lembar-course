@@ -132,7 +132,7 @@ $(document).ready(function() {
     <div class="h-[14px] w-[14px] rounded-full bg-yellow-300"></div>
     <div class="h-[14px] w-[14px] rounded-full bg-green-500"></div>
 </div>
-<pre><code class="language-javascript">
+<pre><code class="language-php">
 </code></pre>
 </div>`);
                         // modal.classList.remove('hidden');

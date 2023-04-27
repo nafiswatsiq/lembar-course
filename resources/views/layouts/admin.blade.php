@@ -20,7 +20,7 @@
   </head>
 
   <body class="m-0 font-sans antialiased font-normal text-base leading-default bg-gray-50 text-slate-500">
-    <x-notifications z-index="z-50" />
+    <x-notifications/>
     <!-- sidenav  -->
     @include('layouts.navbars.sidebar-admin')
     <!-- end sidenav -->
