@@ -13,6 +13,8 @@ class ProgramingLang extends Component
     use WithPagination;
 
     public $perpage = 10;
+
+    public $search;
     
     protected $listeners = [
         'refresh' => '$refresh',
@@ -33,8 +35,9 @@ class ProgramingLang extends Component
 
     public function render()
     {
+        $programingLang = ProgramLanguage::where('name', 'like', '%'.$this->search.'%')->paginate($this->perpage);
         return view('livewire.admin.programing-lang', [
-            'programingLangs' => ProgramLanguage::orderBy('id', 'desc')->paginate($this->perpage),
+            'programingLangs' => $programingLang,
         ]);
     }
 }
