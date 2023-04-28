@@ -35,7 +35,7 @@ class EditLanguage extends ModalComponent
 
         $this->notification()->success(
             $title = 'Berhasil',
-            $description = 'Berhasil Menambahkan '.$this->name
+            $description = 'Berhasil Mengubah '.$this->name
         );
 
         $this->emit('refresh');
